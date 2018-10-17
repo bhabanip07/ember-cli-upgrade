@@ -1,0 +1,36 @@
+<div class="layout-row flex">
+
+  <h2>Welcome!</h2>
+  <p>Search a owner from below autocomplete</p>
+</div>
+<div class="layout-row flex">
+  {{#paper-autocomplete
+    triggerClass="flex-40"
+    required="style"
+    allowClear=true
+    flex=true
+    passThru=(hash required="required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false")
+    label="Owner Name"
+    options=(readonly model)
+    selected=(readonly data)
+    searchField="owner"
+    labelPath="owner"
+    noMatchesMessage="No Product Use Found"
+    onSelectionChange=(action (mut data)) as |productUse select|}}
+    {{paper-autocomplete-highlight
+        label=(readonly productUse.owner)
+        searchText=select.searchText flags="i"}}
+  {{/paper-autocomplete}}
+</div>
+<div class="layout-row flex">
+  <h3>List of Owners.</h3>
+{{#each model as |rental|}}
+    <div class="detail owner">
+      <span>Owner:</span> {{rental.owner}}
+    </div>
+    <div class="detail location">
+      <span>Location:</span> {{rental.city}}
+    </div>
+
+{{/each}}
+</div>
